@@ -1,5 +1,5 @@
 import csv
-from judging_info import school_success_dict, counting_dict, ignore_list
+from judging_info import school_success_dict, counting_dict, ignore_list, school_dict
 import os
 
 
@@ -17,6 +17,42 @@ results_write.writerow(header_list)
 
 ignore_doc = open('ignored_rounds.txt', 'a')
 error_doc = open('error_rounds.txt', 'a')
+
+
+
+
+def head_to_head_calc(ignore, schools, success_dict)
+    for judge_record in os.listdir('.'):
+        if not judge_record.endswith('.csv'):
+            print(f'Skipping... {judge_record}')
+            continue
+        elif judge_record == 'Head_to_Head_Results.csv':
+            continue
+        else:
+            #read the file
+            print("Counting judge record for..." + judgeRecord)
+            csvFileObj = open(judgeRecord)
+            recordReader = csv.reader(csvFileObj)
+            recordlist = list(recordReader)
+
+            for row in recordlist:
+                aff_team = row[4]
+                neg_team = row[5]
+                aff_team = aff_team[:-3]
+                neg_team = neg_team[:-3]
+
+
+                if row[2] == 'Event':
+                    continue
+
+                else:
+                  if aff_team in ignore:
+                      ignore_doc.write(f'{recordEntry} has a bad round in {row[0]} with {aff_team}.\n')
+                  elif aff_team in schools:
+                    
+
+
+
 
 
 # for each row of the CSV write out the key and then each of the values
