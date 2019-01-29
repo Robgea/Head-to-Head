@@ -21,7 +21,7 @@ error_doc = open('error_rounds.txt', 'a')
 
 
 
-def head_to_head_calc(ignore, schools, success_dict)
+def head_to_head_calc(ignore, schools, success_dict):
     for judge_record in os.listdir('.'):
         if not judge_record.endswith('.csv'):
             print(f'Skipping... {judge_record}')
@@ -30,10 +30,11 @@ def head_to_head_calc(ignore, schools, success_dict)
             continue
         else:
             #read the file
-            print("Counting judge record for..." + judgeRecord)
-            csvFileObj = open(judgeRecord)
+            print(f"Counting judge record for {judge_record}")
+            csvFileObj = open(judge_record)
             recordReader = csv.reader(csvFileObj)
             recordlist = list(recordReader)
+            recordEntry = judge_record[:-4]
 
             for row in recordlist:
                 aff_team = row[4]
@@ -74,9 +75,15 @@ def head_to_head_calc(ignore, schools, success_dict)
                   else:
                       print('Something really weird happened.')
 
+    for k in success_dict:
+        success_csv_row = [k,]
+        for key in i:
+          success_csv_row.append(i[key])
+        results_write.writerow(success_csv_row)
 
 
 
+head_to_head_calc(ignore_list,school_dict,school_success_dict)
 
 
 
