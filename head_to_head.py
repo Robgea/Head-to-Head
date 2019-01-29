@@ -46,10 +46,35 @@ def head_to_head_calc(ignore, schools, success_dict)
                     continue
 
                 else:
-                  if aff_team in ignore:
+                  if (aff_team in ignore) or (neg_team in ignore):
                       ignore_doc.write(f'{recordEntry} has a bad round in {row[0]} with {aff_team}.\n')
-                  elif aff_team in schools:
-                    
+                  elif (aff_team in schools) and (neg_team in schools):
+                      aff_lookup = schools[aff_team]
+                      neg_lookup = schools[neg_team]
+                      if row[6].startswith('AFF'):
+                          try:
+                              success_dict[aff_lookup][neg_lookup + ' Aff Wins'] += 1
+                              success_dict[aff_lookup][neg_lookup + ' Aff Total'] += 1
+                              success_dict[aff_lookup]['Aff Wins'] += 1
+                              success_dict[aff_lookup]['Aff Total'] += 1
+                              success_dict[neg_lookup][aff_lookup + ' Neg Total'] += 1
+                              success_dict[neg_lookup]['Neg Total'] += 1
+                          except:
+                              print(f"Something fucky happened. {row[0]} with {aff_team} and {neg_team}.")
+                      elif row[6].startswith('NEG'):
+                          try:
+                              success_dict[aff_lookup][neg_lookup + ' Aff Total'] += 1
+                              success_dict[aff_lookup]['Aff Total'] += 1
+                              success_dict[neg_lookup][aff_lookup + ' Neg Wins'] += 1
+                              success_dict[neg_lookup][aff_lookup + ' Neg Total'] += 1
+                              success_dict[neg_lookup]['Neg Wins'] += 1
+                              success_dict[neg_lookup]['Neg Total'] += 1
+                          except:
+                              print(f"Something fucky happened. {row[0]} with {aff_team} and {neg_team}.")
+                  else:
+                      print('Something really weird happened.')
+
+
 
 
 
