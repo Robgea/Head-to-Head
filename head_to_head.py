@@ -76,9 +76,10 @@ def head_to_head_calc(ignore, schools, success_dict):
                       print('Something really weird happened.')
 
     for k in success_dict:
+        print(success_dict[k])
         success_csv_row = [k,]
-        for key in i:
-          success_csv_row.append(i[key])
+        for key in success_dict[k]:
+          success_csv_row.append(success_dict[k][key])
         results_write.writerow(success_csv_row)
 
 
